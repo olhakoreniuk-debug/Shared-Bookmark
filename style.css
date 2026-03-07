@@ -1,0 +1,236 @@
+/* -------------------------
+   Base
+-------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #1a1a1a;
+  background: #f5f5f5;
+}
+
+/* -------------------------
+   Layout
+-------------------------- */
+header {
+  background: #2c3e50;
+  color: #fff;
+  padding: 1rem 2rem;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+header p {
+  margin: 0.25rem 0 0;
+  opacity: 0.8;
+}
+
+main {
+  max-width: 760px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Skip link — visible on focus only */
+a[href="#main"] {
+  position: absolute;
+  top: -3rem;
+  left: 1rem;
+  background: #2c3e50;
+  color: #fff;
+  padding: 0.4rem 0.75rem;
+  border-radius: 0 0 6px 6px;
+  text-decoration: none;
+  transition: top 0.15s;
+}
+
+a[href="#main"]:focus {
+  top: 0;
+}
+
+/* -------------------------
+   User selection
+-------------------------- */
+fieldset {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  background: #fff;
+}
+
+legend {
+  font-weight: 600;
+  padding: 0 0.4rem;
+  color: #2c3e50;
+}
+
+/* -------------------------
+   Status message
+-------------------------- */
+#status {
+  margin: 0;
+  color: #555;
+  font-style: italic;
+  min-height: 1.5rem;
+}
+
+/* -------------------------
+   Bookmark cards
+-------------------------- */
+#bookmarks {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bookmark-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.bookmark-card h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.05rem;
+}
+
+.bookmark-link {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.bookmark-link:hover {
+  text-decoration: underline;
+}
+
+.bookmark-description {
+  margin: 0.25rem 0;
+  color: #444;
+}
+
+.bookmark-card small {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+.actions {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* -------------------------
+   Buttons
+-------------------------- */
+button {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+button:hover:not(:disabled) {
+  background: #f0f0f0;
+  border-color: #aaa;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+button[type="submit"] {
+  background: #2c3e50;
+  color: #fff;
+  border-color: #2c3e50;
+  font-weight: 600;
+}
+
+button[type="submit"]:hover {
+  background: #3d5166;
+  border-color: #3d5166;
+}
+
+button[type="reset"] {
+  color: #555;
+}
+
+/* -------------------------
+   Form
+-------------------------- */
+#bookmarkForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#bookmarkForm p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+#bookmarkForm label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+#bookmarkForm input,
+#bookmarkForm textarea {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  width: 100%;
+  transition: border-color 0.15s;
+}
+
+#bookmarkForm input:focus,
+#bookmarkForm textarea:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+#bookmarkForm textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+#bookmarkForm small {
+  color: #777;
+  font-size: 0.8rem;
+}
+
+/* Submit + reset buttons row */
+#bookmarkForm p:last-child {
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+/* -------------------------
+   HR divider
+-------------------------- */
+hr {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+}

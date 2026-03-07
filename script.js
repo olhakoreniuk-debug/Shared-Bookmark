@@ -7,11 +7,13 @@ import {
 
 const userSelect = document.getElementById("userSelect");
 const bookmarksSection = document.getElementById("bookmarks");
+const status = document.getElementById("status");
 const form = document.getElementById("bookmarkForm");
 
 let currentUser = null;
 
 /* ---------------------------
+   Populate dropdown
    Populate dropdown dynamically
 ---------------------------- */
 function populateUsers() {
@@ -39,6 +41,7 @@ userSelect.addEventListener("change", () => {
 ---------------------------- */
 function renderBookmarks() {
   bookmarksSection.innerHTML = "";
+  status.textContent = "";
 
   if (!currentUser) return;
 
@@ -46,38 +49,51 @@ function renderBookmarks() {
   const bookmarks = sortReverseChronological(data);
 
   if (bookmarks.length === 0) {
-    bookmarksSection.innerHTML = "<p>No bookmarks for this user.</p>";
+    status.textContent = "No bookmarks for this user.";
     return;
   }
 
   bookmarks.forEach((bookmark) => {
     const article = document.createElement("article");
+    article.className = "bookmark-card";
 
     const h3 = document.createElement("h3");
     const a = document.createElement("a");
     a.href = bookmark.url;
     a.target = "_blank";
     a.rel = "noopener noreferrer";
+    a.className = "bookmark-link";
     a.textContent = bookmark.title;
     h3.appendChild(a);
 
     const desc = document.createElement("p");
+    desc.className = "bookmark-description";
     desc.textContent = bookmark.description;
 
     const meta = document.createElement("p");
     const small = document.createElement("small");
-    small.textContent = `Created: ${new Date(bookmark.createdAt).toLocaleString()}`;
+    const time = document.createElement("time");
+    time.className = "bookmark-created-at";
+    time.dateTime = bookmark.createdAt;
+    time.textContent = new Date(bookmark.createdAt).toLocaleString();
+    small.append("Added: ", time);
     meta.appendChild(small);
 
+    const actions = document.createElement("div");
+    actions.className = "actions";
+
     const copyBtn = document.createElement("button");
+    copyBtn.type = "button";
     copyBtn.dataset.copy = bookmark.url;
     copyBtn.textContent = "Copy URL";
 
     const likeBtn = document.createElement("button");
+    likeBtn.type = "button";
     likeBtn.dataset.like = bookmark.id;
     likeBtn.textContent = `❤️ ${bookmark.likes}`;
 
-    article.append(h3, desc, meta, copyBtn, likeBtn);
+    actions.append(copyBtn, likeBtn);
+    article.append(h3, desc, meta, actions);
     bookmarksSection.appendChild(article);
   });
 }
@@ -113,7 +129,21 @@ bookmarksSection.addEventListener("click", (e) => {
   const likeId = e.target.dataset.like;
 
   if (copyUrl) {
-    navigator.clipboard.writeText(copyUrl);
+    navigator.clipboard
+      .writeText(copyUrl)
+      .then(() => {
+        const btn = e.target;
+        const original = btn.textContent;
+        btn.textContent = "Copied!";
+        btn.disabled = true;
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.disabled = false;
+        }, 1500);
+      })
+      .catch(() => {
+        alert("Could not copy URL. Please copy it manually.");
+      });
   }
 
   if (likeId) {
