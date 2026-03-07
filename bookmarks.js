@@ -1,6 +1,13 @@
+function generateId() {
+  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+    return crypto.randomUUID();
+  }
+  return Date.now().toString(36) + Math.random().toString(36).slice(2);
+}
+
 export function createBookmark(url, title, description) {
   return {
-    id: crypto.randomUUID(),
+    id: generateId(),
     url,
     title,
     description,
