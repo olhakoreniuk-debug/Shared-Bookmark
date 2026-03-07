@@ -14,6 +14,7 @@ let currentUser = null;
 
 /* ---------------------------
    Populate dropdown
+   Populate dropdown dynamically
 ---------------------------- */
 function populateUsers() {
   const users = getUserIds();
