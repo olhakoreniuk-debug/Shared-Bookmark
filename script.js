@@ -32,7 +32,7 @@ populateUsers();
    Handle user selection
 ---------------------------- */
 userSelect.addEventListener("change", () => {
-  currentUser = userSelect.value;
+  currentUser = userSelect.value || null;
   renderBookmarks();
 });
 
@@ -146,7 +146,7 @@ bookmarksSection.addEventListener("click", (e) => {
       });
   }
 
-  if (likeId) {
+  if (likeId && currentUser) {
     const data = getData(currentUser) || [];
     const updated = incrementLike(data, likeId);
     setData(currentUser, updated);
