@@ -1,8 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shared Bookmarks</title>
     <script type="module" src="script.js"></script>
   </head>
   <body>
+    <a href="#main">Skip to content</a>
+    
+    <header>
+      <h1>Shared Bookmarks</h1>
+      <p>
+        <small>
+          Select a user to view bookmarks. Use the form below to add a new bookmark for the selected user.
+        </small>
+      </p>
+    </header>
+    
+    <main id="main">
+      <section aria-label="User selection">
+        <fieldset>
+          <legend>Select user</legend>
+    
+          <label for="userSelect">User</label>
+          <select id="userSelect" name="userSelect">
+            <option value="">-- Select a user --</option>
+            <!-- Options populated by JS -->
+          </select>
+        </fieldset>
+      </section>
+    
+      <p id="status" role="status" aria-live="polite"></p>
+    
+      <section id="bookmarks" aria-label="Bookmarks list">
+        <!-- JS will render bookmark cards here -->
+      </section>
+    
+      <hr />
+    
+      <section aria-label="Add bookmark">
+        <h2 id="addBookmarkHeading">Add bookmark</h2>
+    
+        <form id="bookmarkForm" aria-labelledby="addBookmarkHeading" autocomplete="on">
+          <fieldset>
+            <legend>New bookmark details</legend>
+    
+            <p>
+              <label for="url">URL</label><br />
+              <input id="url" name="url" type="url" required inputmode="url" placeholder="https://example.com" size="60"
+                autocapitalize="none" spellcheck="false" aria-describedby="urlHelp" list="urlExamples" />
+              <br />
+              <small id="urlHelp">Tip: paste a full link starting with https://</small>
+            </p>
+    
+            <p>
+              <label for="title">Title</label><br />
+              <input id="title" name="title" type="text" required minlength="2" maxlength="80"
+                placeholder="Short, clear title" size="60" aria-describedby="titleHelp" />
+              <br />
+              <small id="titleHelp">2–80 characters.</small>
+            </p>
+    
+            <p>
+              <label for="description">Description</label><br />
+              <textarea id="description" name="description" required minlength="5" maxlength="280" rows="4" cols="62"
+                placeholder="1–2 sentences about the link" aria-describedby="descriptionHelp"></textarea>
+              <br />
+              <small id="descriptionHelp">5–280 characters.</small>
+            </p>
+    
+            <p>
+              <button type="submit">Add Bookmark</button>
+              <button type="reset">Clear</button>
+            </p>
+          </fieldset>
+    
+          <datalist id="urlExamples">
+            <option value="https://developer.mozilla.org/"></option>
+            <option value="https://kottke.org/"></option>
+            <option value="https://migracode-itp.netlify.app/"></option>
+          </datalist>
+        </form>
+      </section>
+    
+      <!-- Template for a bookmark card (teammate JS can clone this later) -->
+      <template id="bookmarkCardTemplate">
+        <article class="bookmark-card">
+          <header>
+            <h3>
+              <a class="bookmark-link" href="#" target="_blank" rel="noopener noreferrer">
+                Bookmark title
+              </a>
+            </h3>
+            <p class="bookmark-description">Bookmark description</p>
+            <p>
+              <small>
+                Added:
+                <time class="bookmark-created-at" datetime="">—</time>
+              </small>
+            </p>
+          </header>
+    
+          <section aria-label="Bookmark actions">
+            <!-- Share button placeholder: below Copy URL as requested -->
+            <p>
+              <button type="button" data-copy-url>Copy URL</button><br />
+              <button type="button" data-share-bookmark>Share Bookmark</button>
+            </p>
+    
+            <p>
+              <button type="button" data-like>❤️ <span data-like-count>0</span></button>
+            </p>
+          </section>
+        </article>
+      </template>
+    </main>
+    
+    <noscript>This page needs JavaScript enabled to work.</noscript>
   </body>
 </html>
